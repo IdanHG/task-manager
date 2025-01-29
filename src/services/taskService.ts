@@ -22,5 +22,36 @@ export class TaskService  {
         return newTask;
     }
 
-    getAll
+    getAlltasks(): Task[] {
+        return Array.from(this.tasks.values());
+    }
+
+    getTaskByID(id: string) : Task | undefined {
+        return this.tasks.get( id );
+    }
+
+    updateTask(id: string, updates: Partial<Task>): Task | undefined {
+        const task = this.getTaskByID(id);
+        if (!task) return undefined;
+
+        const updTask: Task = {
+            ...task,
+            ...updates,
+            id: id,
+            updatedAt: new Date()
+        };
+
+        this.tasks.set(id, updTask);
+        return updTask;
+    }
+
+    deleteTask(id: string): Task | undefined {
+        const task = this.getTaskByID(id);
+
+        if (this.tasks.delete(id)) return task;
+        return undefined;
+    }
+
+    
+
 }
