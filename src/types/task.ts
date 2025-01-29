@@ -6,6 +6,14 @@ export interface Task {
     urgency: Urgency;
     createdAt: Date;
     updatedAt: Date;
+    dueDate: Date;
+}
+
+export interface TaskStats {
+    total: number,
+    byStatus: Record<TaskStatus, number>;
+    byUrgency: Record<Urgency, number>
+    overDue: number,
 }
 
 export enum TaskStatus {
