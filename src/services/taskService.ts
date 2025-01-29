@@ -90,7 +90,7 @@ export class TaskService  {
 
     getOverDues(): Task[] {
         return Array.from(this.tasks.values()).filter(task => {
-            return task.dueDate < new Date()
+            return task.dueDate < this.StartoffDay();
         })
     }
 
@@ -115,8 +115,14 @@ export class TaskService  {
     private validateTask(task: Partial<Task>): boolean {
         if (task.title && task.title.length < 3) { return false; }
         if (task.description && task.description.length < 10) { return false; }
-        if (task.dueDate && task.dueDate < new Date()) return false;
+        if (task.dueDate && task.dueDate < this.StartoffDay()) return false;
         return true;
     }
+
+    private StartoffDay() {
+        const date = new Date();
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    }
+    
 
 }
